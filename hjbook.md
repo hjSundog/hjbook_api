@@ -56,14 +56,14 @@ GET /users/:id 获取id用户信息
 |:--|:--|:--|
 |user_name|string|用户昵称|
 |real_name|string|真实姓名|
-|auth|int|用户权限|
+|auth|string|用户权限|
 
 #### 例子
     {
         user_name:张三
         real_name:王二
-        auth：1
-    }
+        auth：student
+    }
     
 ### 获取用户借书情况
 GET /users/:id/books
