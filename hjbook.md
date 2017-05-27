@@ -62,8 +62,8 @@ GET /users/:id 获取id用户信息
     {
         user_name:张三
         real_name:王二
-        auth：student
-    }
+        auth：student
+    }
     
 ### 获取用户借书情况
 GET /users/:id/books
