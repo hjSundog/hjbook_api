@@ -6,6 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * CodeIgniter Rest Controller
  * A fully RESTful server implementation for CodeIgniter using one library, one config file and one controller.
  *
+ * @property bool auth_override
  * @package         CodeIgniter
  * @subpackage      Libraries
  * @category        Libraries
@@ -621,6 +622,7 @@ abstract class REST_Controller extends CI_Controller {
      * @access public
      * @param string $object_called
      * @param array $arguments The arguments passed to the controller method
+     * @throws Exception
      */
     public function _remap($object_called, $arguments = [])
     {
