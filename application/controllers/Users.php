@@ -17,7 +17,10 @@
 require APPPATH.'/libraries/REST_Controller.php';
 class users extends REST_Controller
 {
-
+    function __construct() {
+        parent::__construct();
+        header('Access-Control-Allow-Origin:*')
+    }
     /**
      * 注册
      */
