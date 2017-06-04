@@ -23,10 +23,12 @@ class users extends REST_Controller
      */
     public function index_post()
     {
-        $data = [
-            'user_email' => $this->input->post('user_email'),
-            'password' => password_hash($this->input->post('password'),PASSWORD_DEFAULT)
-        ];
+//        $data = [
+//            'user_email' => $this->input->post('user_email'),
+//            'password' => password_hash($this->input->post('password'),PASSWORD_DEFAULT)
+//        ];
+        $data = json_decode(trim(file_get_contents('php://input')), true);
+        $data['password'] = password_hash($data['password'],PASSWORD_DEFAULT);
         $query = $this->db->get_where('user', array('user_email' => $data['user_email']))->row_array();
         if($query){
             $this->response(['error'=>'邮箱被占用！'], 400);
@@ -40,10 +42,12 @@ class users extends REST_Controller
     }
     public function signin_post()
     {
-        $data = [
-            'user_email' => $this->input->post('user_email'),
-            'password' => $this->input->post('password')
-        ];
+//        $data = [
+//            'user_email' => $this->input->post('user_email'),
+//            'password' => $this->input->post('password')
+//        ];
+        $data = json_decode(trim(file_get_contents('php://input')), true);
+        $data['password'] = password_hash($data['password'],PASSWORD_DEFAULT);
         $user = $this->db->get_where('user', array('user_email' => $data['user_email']))->row_array();
         if($user){
             if (password_verify($data['password'], $user['password'])) {
@@ -70,12 +74,12 @@ class users extends REST_Controller
         $query = $this->db->query('SELECT * FROM user');
         // Example data for testing.
         $user = $query->result_array();
-         
+
         //if (!$user_id) { $user_id = $this->get('user_id'); }
         if (!$id)
-            
+
             {
-                //$user = $this->user_model->getuser();                        
+                //$user = $this->user_model->getuser();
                 if($user){
                     foreach($user as $key=>$value)
                     {
@@ -89,9 +93,9 @@ class users extends REST_Controller
                 else
                     $this->response(array('error' => 'Couldn\'t find any user!'), 404);
             }
-        
+
         //$user = $this->user_model->getuser($id);
-        
+
         if ($id)
             {
             $query = $this->db->query('SELECT * FROM user WHERE user_id = '.$id);
@@ -99,15 +103,16 @@ class users extends REST_Controller
             $user = $query->row_array();
             if($user){
                 unset($user['password']);
+                $user['header'] = $this->input->get_request_header('access_token');
                 $this->response($user, 200); // 200 being the HTTP response code
             }
 
             else
                 $this->response(array('error' => 'user could not be found'), 404);
-            } 
+            }
         if ($id == 0) $this->response(array('error' => 'user could not be found'), 404);
     }
-    
+
 //    function index_post()
 //    {
 //        if (func_num_args() != 0) $this->response(array('error' => 'cannot post with certain id'), 401);
@@ -147,8 +152,8 @@ class users extends REST_Controller
 //            $this->response(array('error' => 'user could not be created'), 404);
 //        */
 //    }
-    
-    public function index_put($id = '')                                                         
+
+    public function index_put($id = '')
     {
         $data = $this->_put_args;
         if ($id) {
@@ -163,7 +168,7 @@ class users extends REST_Controller
             $this->response(array('error' => 'user could not be found'), 404);
 
     }
-        
+
     function index_delete($id = '')
     {
         if (!$id) { $id = $this->get('id'); }
@@ -173,7 +178,7 @@ class users extends REST_Controller
         }
 
         $query = $this->db->query('DELETE FROM user WHERE user_id ='.$id);
-        
+
 
         if($query) {
             $this->response(array('message' => 'Delete OK!'), 200);
