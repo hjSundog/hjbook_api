@@ -47,7 +47,6 @@ class users extends REST_Controller
 //            'password' => $this->input->post('password')
 //        ];
         $data = json_decode(trim(file_get_contents('php://input')), true);
-        $data['password'] = password_hash($data['password'],PASSWORD_DEFAULT);
         $user = $this->db->get_where('user', array('user_email' => $data['user_email']))->row_array();
         if($user){
             if (password_verify($data['password'], $user['password'])) {
