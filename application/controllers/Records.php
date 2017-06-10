@@ -21,7 +21,7 @@ class records extends REST_Controller
     function index_get($id = '')
     {
     
-        
+        if (!$id) $id = 0;
         $query = $this->db->query('SELECT * FROM record');
         // Example data for testing.
         $record = $query->result();
