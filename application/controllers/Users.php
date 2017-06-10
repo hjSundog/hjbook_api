@@ -94,6 +94,7 @@ class users extends REST_Controller
         $data = $this->_put_args;
         if ($id) {
             //存在问题 之前两个都可以为空的
+            //是否可以修改名字未知，暂时可以
             $query = $this->db->query('UPDATE user SET user_name = "'.$data['user_name'].'", password = "'.$data['password'].'" WHERE user_id = '.$id);
             $query = $this->db->query('SELECT * FROM user WHERE user_id = '.$id);
             $user = $query->result();

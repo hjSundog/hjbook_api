@@ -53,8 +53,11 @@ class books extends REST_Controller
     {
         if (func_num_args() != 0) $this->response(array('error' => 'cannot post with certain id'), 400);
         $data = $this->_post_args;
+        $query1 = $this->db->query('SELECT * FROM category WHERE category_name ="'.$data['book_category'].'"');
+        $category = $query1->result();
+        if (!$category) $query1 = $this->db->query('INSERT INTO category (category_name) VALUES ("'.$data['book_category'].'")');
         try{
-            $query = $this->db->query('INSERT INTO book (book_name, book_detail, borrow, create_datetime) VALUES ("'.$data['book_name'].'", "'.$data['book_detail'].'", 0, now());');
+            $query = $this->db->query('INSERT INTO book (book_name, book_category, book_detail, borrowed, create_datetime) VALUES ("'.$data['book_name'].'", "'.$data['book_category'].'", "'.$data['book_detail'].'", false, now());');
             } catch (Exception $e){
                 $this->response(array('error' => $e->getMessage()), $e->getCode());
             }
@@ -66,7 +69,7 @@ class books extends REST_Controller
         $book = $query->result();
             if($book)
                 $this->response($book, 200); // 200 being the HTTP response code
-
+        
         
         
         /*
@@ -95,15 +98,18 @@ class books extends REST_Controller
         $data = $this->_put_args;
         if ($id) {
             //存在问题 之前两个都可以为空的
-            $query = $this->db->query('UPDATE book SET book_name = "'.$data['book_name'].'", book_detail = "'.$data['book_detail'].'", borrow = "'.$data['borrow'].'" WHERE book_id = '.$id);
-            $query = $this->db->query('SELECT book_id, book_name, book_detail, borrow, create_datetime FROM book WHERE book_id = '.$id);
+            //由于category和book表独立，所以尽量在put的时候不要动category的内容，毕竟常理上说一本书定了它的category已经定了
+
+            $query = $this->db->query('UPDATE book SET book_name = "'.$data['book_name'].'",book_category = "'.$data['book_category'].'", book_detail = "'.$data['book_detail'].'", borrowed = "'.$data['borrowed'].'" WHERE book_id = '.$id);
+            $query = $this->db->query('SELECT * FROM book WHERE book_id = '.$id);
             $book = $query->result();
             //$book = array('id' => $data['id'], 'name' => $data['name']); // test code
             //$book = $this->book_model->getbook($id);
+            
             $this->response($book, 200); // 200 being the HTTP response code
         } else
             $this->response(array('error' => 'book could not be found'), 404);
-
+        
     }
         
     function index_delete($id = '')
