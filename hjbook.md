@@ -422,7 +422,7 @@ DELETE index.php/books/1
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
-| 400 | An ID must be supplied to delete a book | add ID |
+| 400 | An ID must be supplied to delete a book | Add ID |
 | 401 | Unauthorized | Need login |
 | 404 | Book could not be found | Invalid book ID |
 
@@ -546,7 +546,7 @@ GET index.php/books/records/1
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
-| 404 | Record could not be found | Invalid Record ID |
+| 404 | Record could not be found | Invalid record ID |
 
 ####About other error codes，view Error List Below.
 
@@ -680,7 +680,7 @@ PUT index.php/books/records/1
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
-| 400 | must input status | Status not input |
+| 400 | Must input status | Status not input |
 | 401 | Unauthorized | Need login |
 | 404 | record could not be found | Invalid book ID |
 
@@ -736,6 +736,7 @@ DELETE index.php/books/records/6
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
+| 400 | An ID must be supplied to delete a record | add ID |
 | 401 | Unauthorized | Need login |
 | 404 | record could not be found | Invalid book ID |
 
