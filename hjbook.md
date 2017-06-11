@@ -227,7 +227,6 @@ GET index.php/books/2
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
-| 401 | Unauthorized | Need login |
 | 404 | Book could not be found | Invalid Book ID |
 
 ####About other error codes，view Error List Below.
@@ -336,7 +335,7 @@ PUT
 ---
 
 ` ``
-PUT index.php/book/1
+PUT index.php/books/1
 ` 
 
 *** JSON EXAMPLE ***
@@ -367,6 +366,7 @@ PUT index.php/book/1
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
+| 400 | Must put with ID | Must put with ID |
 | 401 | Unauthorized | Need login |
 | 404 | Book could not be found | Invalid book ID |
 
@@ -403,7 +403,7 @@ DELETE
 ---
 
 ` ``
-DELETE index.php/book/1
+DELETE index.php/books/1
 ` 
 
 
@@ -422,6 +422,7 @@ DELETE index.php/book/1
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
+| 400 | An ID must be supplied to delete a book | Add ID |
 | 401 | Unauthorized | Need login |
 | 404 | Book could not be found | Invalid book ID |
 
@@ -429,7 +430,7 @@ DELETE index.php/book/1
 
 ---
 
-## GET records/
+## GET books/records/
 
 ---
 
@@ -483,8 +484,11 @@ GET
       "return_datetime": null
     }
     
+*** ERRORS ***
 
-
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 404 | Couldn't find any record | No records |
 
 ####About other error codes，view Error List Below.
 
@@ -542,8 +546,7 @@ GET index.php/books/records/1
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
-| 401 | Unauthorized | Need login |
-| 404 | Not Found | Invalid Book ID |
+| 404 | Record could not be found | Invalid record ID |
 
 ####About other error codes，view Error List Below.
 
@@ -677,7 +680,7 @@ PUT index.php/books/records/1
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
-| 400 | must input status | Status not input |
+| 400 | Must input status | Status not input |
 | 401 | Unauthorized | Need login |
 | 404 | record could not be found | Invalid book ID |
 
@@ -733,6 +736,7 @@ DELETE index.php/books/records/6
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
+| 400 | An ID must be supplied to delete a record | add ID |
 | 401 | Unauthorized | Need login |
 | 404 | record could not be found | Invalid book ID |
 
