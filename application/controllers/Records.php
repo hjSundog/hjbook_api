@@ -57,12 +57,12 @@ class records extends REST_Controller
     function index_post() 
     {
         $headers = $this->input->request_headers();
-        $token = $this->jwt->decode($headers['access_token'],'hjbook_key');
+        $token = $this->jwt->decode($headers['Access-Token'],'hjbook_key');
         $actual_user = $token->user_id;
         $query_user = $this->db->query('SELECT auth FROM user WHERE user_id ="'.$actual_user.'"');
         $user = $query_user->result();
         $auth = ($user[0]->{'auth'});
-        if ($auth != "administrator") $this->response(array('error' => 'Unauthorized'), 401);
+        if ($auth == "") $this->response(array('error' => 'Unauthorized'), 401);
         else
         {
             if (func_num_args() != 0) $this->response(array('error' => 'Cannot post with certain id'), 401);
@@ -105,12 +105,12 @@ class records extends REST_Controller
     public function index_put($id = '')                                                         
     {
         $headers = $this->input->request_headers();
-        $token = $this->jwt->decode($headers['access_token'],'hjbook_key');
+        $token = $this->jwt->decode($headers['Access-Token'],'hjbook_key');
         $actual_user = $token->user_id;
         $query_user = $this->db->query('SELECT auth FROM user WHERE user_id ="'.$actual_user.'"');
         $user = $query_user->result();
         $auth = ($user[0]->{'auth'});
-        if ($auth != "administrator") $this->response(array('error' => 'Unauthorized'), 401);
+        if ($auth == "") $this->response(array('error' => 'Unauthorized'), 401);
         else
         {
             $data = $this->_put_args;
@@ -138,7 +138,7 @@ class records extends REST_Controller
     function index_delete($id = '')
     {
         $headers = $this->input->request_headers();
-        $token = $this->jwt->decode($headers['access_token'],'hjbook_key');
+        $token = $this->jwt->decode($headers['Access-Token'],'hjbook_key');
         $actual_user = $token->user_id;
         $query_user = $this->db->query('SELECT auth FROM user WHERE user_id ="'.$actual_user.'"');
         $user = $query_user->result();

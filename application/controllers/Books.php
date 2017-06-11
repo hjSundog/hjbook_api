@@ -52,7 +52,7 @@ class books extends REST_Controller
     {
 
         $headers = $this->input->request_headers();
-        $token = $this->jwt->decode($headers['access_token'],'hjbook_key');
+        $token = $this->jwt->decode($headers['Access-Token'],'hjbook_key');
         $actual_user = $token->user_id;
         $query_user = $this->db->query('SELECT auth FROM user WHERE user_id ="'.$actual_user.'"');
         $user = $query_user->result();
@@ -106,7 +106,7 @@ class books extends REST_Controller
     public function index_put($id = '')                                                         
     {
         $headers = $this->input->request_headers();
-        $token = $this->jwt->decode($headers['access_token'],'hjbook_key');
+        $token = $this->jwt->decode($headers['Access-Token'],'hjbook_key');
         $actual_user = $token->user_id;
         $query_user = $this->db->query('SELECT auth FROM user WHERE user_id ="'.$actual_user.'"');
         $user = $query_user->result();
@@ -146,7 +146,7 @@ class books extends REST_Controller
     function index_delete($id = '')
     {
         $headers = $this->input->request_headers();
-        $token = $this->jwt->decode($headers['access_token'],'hjbook_key');
+        $token = $this->jwt->decode($headers['Access-Token'],'hjbook_key');
         $actual_user = $token->user_id;
         $query_user = $this->db->query('SELECT auth FROM user WHERE user_id ="'.$actual_user.'"');
         $user = $query_user->result();
