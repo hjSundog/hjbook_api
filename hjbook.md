@@ -114,5 +114,629 @@ GET /users/:id/books
 		"create_datetime": "0000-00-00 00:00:00",
 		"return_datetime": null
 	}
-    
+
+## GET books/
+
+---
+
+Get All Book Information
+
+##### Authorization
+
+---
+
+No
+
+##### Parameters
+
+---
+
+No Parameters
+
+##### METHOD
+
+---
+
+GET
+
+##### EXAMPLE
+
+---
+
+    GET index.php/books/
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+    
+    {
+      "book_id": 1,
+      "book_name": "Digital Castle",
+      "book_detail": "Test"
+      "borrowed": 0
+      "create_datetime": "2017-05-28 16:14:59"
+    };
+    {
+      "book_id": 2,
+      "book_name": "The Last Guardian",
+      "book_detail": "Test"
+      "borrowed": 1
+      "create_datetime": "2017-05-30 13:09:09"
+    }
+    
+*** ERRORS ***
+
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 404 | Couldn't find any book | No books |
+
+####About other error codes，view Error List Below.
+
+---
+
+
+## GET books/id
+
+---
+
+Get Specific Book Information
+
+##### Authorization
+
+---
+
+No
+
+##### Parameters
+
+---
+
+None
+
+##### METHOD
+
+---
+
+GET
+
+##### EXAMPLE
+
+---
+
+` ``
+GET index.php/books/2
+` 
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+
+    {
+      "book_id": "2",
+      "book_name": "Digital Castles",
+      "book_detail": "test",
+      "borrowed": "0",
+      "create_datetime": "2017-05-28 16:14:59"
+    }
+
+*** ERRORS ***
+
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 401 | Unauthorized | Need login |
+| 404 | Book could not be found | Invalid Book ID |
+
+####About other error codes，view Error List Below.
+
+---
+
+## POST books/
+
+---
+
+POST(Create) New Book Information
+
+##### Authorization
+
+---
+
+Yes
+
+##### Parameters
+
+---
+
+| NAME | REQUIRED | TYPE | IMPLEMENT |
+|:-------------:|:-------------|:-------------|:-------------|
+| book_name | true | int | Book ID |
+| book_category | true | varchar | Book category |
+| book_detail | true | varchar | Book detail |
+
+##### METHOD
+
+---
+
+POST
+
+##### EXAMPLE
+
+---
+
+    POST index.php/books/
+
+*** JSON EXAMPLE ***
+
+    {
+      "book_name": "The Last Guardian",
+      "book_category": "novel",
+      "book_detail": "test"
+    }
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+
+    {
+      "book_id": 3,
+      "book_name": "The Last Guardian",
+      "book_category": "novel",
+      "book_detail": "Test"
+      "borrowed": 0
+      "create_datetime": "2010/1/1"
+    }
+
+*** ERRORS ***
+
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 400 | Cannot post with certain id | Please post without ID|
+| 401 | Unauthorized | Need login |
+
+####About other error codes，view Error List Below.
+
+---
+
+## PUT books/id
+
+---
+
+PUT Specific Book Information
+
+##### Authorization
+
+---
+
+Yes
+
+##### Parameters
+
+---
+
+| NAME | REQUIRED | TYPE | IMPLEMENT |
+|:-------------:|:-------------|:-------------|:-------------|
+| book_name | false | int | Book Name |
+| book_detail | false | varchar | Book detail |
+| book_category | false | varchar | Book category |
+| borrowed | false | bit | Borrow status |
+
+##### METHOD
+
+---
+
+PUT
+
+##### EXAMPLE
+
+---
+
+` ``
+PUT index.php/book/1
+` 
+
+*** JSON EXAMPLE ***
+
+    {
+      "book_name": "Gone with the wind"
+      "book_category": "novel"
+      "book_detail": "Test1"
+      "borrowed": true
+    }
+
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+
+    {
+      "book_id": 1
+      "book_name": "Gone with the wind"
+      "book_detail": "Test1"
+      "borrowed": "1"
+      "create_datetime": "2017/5/25"
+    }
+
+*** ERRORS ***
+
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 401 | Unauthorized | Need login |
+| 404 | Book could not be found | Invalid book ID |
+
+####About other error codes，view Error List Below.
+
+---
+
+## DELETE books/id
+
+---
+
+DELETE Specific Book Information
+
+##### Authorization
+
+---
+
+Yes
+
+##### Parameters
+
+---
+
+None
+
+##### METHOD
+
+---
+
+DELETE
+
+##### EXAMPLE
+
+---
+
+` ``
+DELETE index.php/book/1
+` 
+
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+
+    {   
+      "message": "Delete OK!"
+    }
+
+
+*** ERRORS ***
+
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 401 | Unauthorized | Need login |
+| 404 | Book could not be found | Invalid book ID |
+
+####About other error codes，view Error List Below.
+
+---
+
+## GET records/
+
+---
+
+Get All Borrow Record Information
+
+##### Authorization
+
+---
+
+No
+
+##### Parameters
+
+---
+
+No Parameters
+
+##### METHOD
+
+---
+
+GET
+
+##### EXAMPLE
+
+---
+
+    GET index.php/books/records
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+
+    
+    {
+      "record_id": "1",
+      "user_id": "1",
+      "book_id": "1",
+      "status": "1",
+      "create_datetime": "2017-06-11 13:19:37",
+      "return_datetime": null
+    },
+    {
+      "record_id": "2",
+      "user_id": "1",
+      "book_id": "2",
+      "status": "1",
+      "create_datetime": "2017-06-11 13:19:46",
+      "return_datetime": null
+    }
+    
+
+
+
+####About other error codes，view Error List Below.
+
+---
+
+
+## GET books/records/id
+
+---
+
+Get Specific Borrow Record Information
+
+##### Authorization
+
+---
+
+No
+
+##### Parameters
+
+---
+
+None
+
+##### METHOD
+
+---
+
+GET
+
+##### EXAMPLE
+
+---
+
+` ``
+GET index.php/books/records/1
+` 
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+
+    {
+      "record_id": "1",
+      "user_id": "1",
+      "book_id": "1",
+      "status": "1",
+      "create_datetime": "2017-06-11 13:19:37",
+      "return_datetime": null
+    }
+
+*** ERRORS ***
+
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 401 | Unauthorized | Need login |
+| 404 | Not Found | Invalid Book ID |
+
+####About other error codes，view Error List Below.
+
+---
+
+## POST books/records
+
+---
+
+POST(Create) New Borrow Record Information
+
+##### Authorization
+
+---
+
+Yes
+
+##### Parameters
+
+---
+
+| NAME | REQUIRED | TYPE | IMPLEMENT |
+|:-------------:|:-------------|:-------------|:-------------|
+| book_name | true | int | Book ID |
+| book_category | true | varchar | Book category |
+| book_detail | true | varchar | Book detail |
+
+##### METHOD
+
+---
+
+POST
+
+##### EXAMPLE
+
+---
+
+    POST index.php/books/records
+
+*** JSON EXAMPLE ***
+
+    {
+	   "user_id": 1,
+	   "book_id": 4
+	}
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+
+    {
+      "record_id": "6",
+      "user_id": "1",
+      "book_id": "4",
+      "status": "1",
+      "create_datetime": "2017-06-11 13:19:52",
+      "return_datetime": null
+    }
+
+*** ERRORS ***
+
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 400 | Cannot post with certain id | Bad request |
+| 401 | Unauthorized | Need login |
+
+####About other error codes，view Error List Below.
+
+---
+
+## PUT books/records/id
+
+---
+
+PUT(Update) Specific Borrow Record Information
+
+##### Authorization
+
+---
+
+Yes
+
+##### Parameters
+
+---
+
+| NAME | REQUIRED | TYPE | IMPLEMENT |
+|:-------------:|:-------------|:-------------|:-------------|
+| status | true | bit | Borrow Status |
+
+
+##### METHOD
+
+---
+
+PUT
+
+##### EXAMPLE
+
+---
+
+` ``
+PUT index.php/books/records/1
+` 
+
+*** JSON EXAMPLE ***
+
+    {
+      "status": false
+    }
+
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+
+    {
+      "record_id": "1",
+      "user_id": "1",
+      "book_id": "4",
+      "status": "0",
+      "create_datetime": "2017-06-11 13:48:27",
+      "return_datetime": "2017-06-11 13:56:51"
+    }
+
+*** ERRORS ***
+
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 400 | must input status | Status not input |
+| 401 | Unauthorized | Need login |
+| 404 | record could not be found | Invalid book ID |
+
+####About other error codes，view Error List Below.
+
+---
+
+## DELETE books/records/id
+
+---
+
+DELETE Specific Borrow Record Information
+
+##### Authorization
+
+---
+
+Yes
+
+##### Parameters
+
+---
+
+None
+
+##### METHOD
+
+---
+
+DELETE
+
+##### EXAMPLE
+
+---
+
+` ``
+DELETE index.php/books/records/6
+` 
+
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+
+    {   
+      "message": "Delete OK!"
+    }
+
+
+*** ERRORS ***
+
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 401 | Unauthorized | Need login |
+| 404 | record could not be found | Invalid book ID |
+
+####About other error codes，view Error List Below.
+
+---
     
