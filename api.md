@@ -38,21 +38,19 @@ GET
 
 *** JSON EXAMPLE ***
 
-` ``
-
     {
       {
         "book_id": 1,
         "book_name": "Digital Castle",
         "book_detail": "Test"
-        "borrow": 0
+        "borrowed": 0
         "create_datetime": "2017-05-28 16:14:59"
       };
       {
         "book_id": 2,
         "book_name": "The Last Guardian",
         "book_detail": "Test"
-        "borrow": 1
+        "borrowed": 1
         "create_datetime": "2017-05-30 13:09:09"
       }
     }
@@ -110,7 +108,7 @@ GET index.php/books/1
       "book_id": "2",
       "book_name": "Digital Castles",
       "book_detail": "test",
-      "borrow": "0",
+      "borrowed": "0",
       "create_datetime": "2017-05-28 16:14:59"
     }
 
@@ -144,7 +142,8 @@ Yes
 | NAME | REQUIRED | TYPE | IMPLEMENT |
 |:-------------:|:-------------|:-------------|:-------------|
 | book_name | true | int | Book ID |
-| book_detail | true | varchar | Book's detail |
+| book_category | true | varchar | Book category |
+| book_detail | true | varchar | Book detail |
 
 ##### METHOD
 
@@ -162,10 +161,9 @@ POST
 
     {
       "book_name": "The Last Guardian",
+      "book_category": "novel",
       "book_detail": "test"
     }
-
-` ``
 
 ##### RESULT
 
@@ -173,31 +171,19 @@ POST
 
 *** JSON EXAMPLE ***
 
-
-` ``
-
-{
-
-
-  "book_id": 3,
-
-  "book_name": "Digital Castle",
-
-  "book_detail": "Test"
-
-  "borrowed": 0
-
-  "create_datetime": "2010/1/1"
-
-}
-
- 
-` ``
+    {
+      "book_id": 3,
+      "book_name": "Digital Castle",
+      "book_detail": "Test"
+      "borrowed": 0
+      "create_datetime": "2010/1/1"
+    }
 
 *** ERRORS ***
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
+| 400 | Cannot post with certain id | Bad request |
 | 401 | Unauthorized | Need login |
 
 ####About other error codes，view Error List Below.
@@ -223,8 +209,9 @@ Yes
 | NAME | REQUIRED | TYPE | IMPLEMENT |
 |:-------------:|:-------------|:-------------|:-------------|
 | book_name | false | int | Book Name |
-| book_detail | true | varchar | Borrow Status |
-| borrowed | true | int(1) | Borrow Status |
+| book_detail | false | varchar | Book detail |
+| book_category | false | varchar | Book category |
+| borrowed | false | bit | Borrow status |
 
 ##### METHOD
 
@@ -238,24 +225,17 @@ PUT
 
 ` ``
 PUT index.php/book/1
-` ``
+` 
 
 *** JSON EXAMPLE ***
 
-` ``
+    {
+      "book_name": "Gone with the wind"
+      "book_category": "novel"
+      "book_detail": "Test"
+      "borrowed": 1
+    }
 
-{
-
-  "book_name": "Gone with the wind"
-
-  "book_detail": "Test"
-
-  "borrowed": 1
-
-  "create_datetime": "2017/5/25"
-}
-
-` ``
 
 ##### RESULT
 
@@ -263,26 +243,13 @@ PUT index.php/book/1
 
 *** JSON EXAMPLE ***
 
-
-` ``
-
-{
-
-
-  "book_id": 1
-
-  "book_name": "Gone with the wind"
-
-  "book_detail": "Test"
-
-  "borrowed": 1
-
-  "create_datetime": "2017/5/25"
-
-}
-
- 
-` ``
+    {
+      "book_id": 1
+      "book_name": "Gone with the wind"
+      "book_detail": "Test"
+      "borrowed": 1
+      "create_datetime": "2017/5/25"
+    }
 
 *** ERRORS ***
 
@@ -334,12 +301,10 @@ DELETE index.php/book/1
 
 *** JSON EXAMPLE ***
 
+    {   
+      "message": "Delete OK!"
+    }
 
-` 
-{
-  "message": "Delete OK!"
-}
-` 
 
 *** ERRORS ***
 

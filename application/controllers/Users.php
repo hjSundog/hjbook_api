@@ -54,6 +54,8 @@ class users extends REST_Controller
         if($user){
             if (password_verify($data['password'], $user['password'])) {
                 $user['token'] = $this->jwt->encode(['exp'=>time()+604800,'auth'=>$user['auth'],'user_id'=>$user['user_id']],$this->config->item('encryption_key'));
+                //$test = $this->jwt->decode($user['token'],'hjbook_key');
+                //$this->response($test, 200);
                 unset($user['password']);
                 $this->response($user, 200);
             }else{

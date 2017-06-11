@@ -22,8 +22,9 @@ DROP TABLE IF EXISTS `book`;
 CREATE TABLE `book` (
   `book_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '书籍id',
   `book_name` varchar(128) COLLATE utf8_bin NOT NULL COMMENT '书籍名称',
+  `book_category` varchar(128) NOT NULL COMMENT '图书种类',
   `book_detail` varchar(128) COLLATE utf8_bin NOT NULL COMMENT '书籍简介',
-  `borrow` int(1) NOT NULL COMMENT '图书是否被借阅',
+  `borrowed` bit NOT NULL DEFAULT false COMMENT '图书是否被借阅',
   `create_datetime` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='图书信息表';
@@ -36,7 +37,7 @@ CREATE TABLE `record` (
   `record_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '借阅记录id',
   `user_id` int(11) NOT NULL COMMENT '用户id',
   `book_id` int(11) NOT NULL COMMENT '图书id',
-  `status` int(1) NOT NULL COMMENT '借阅状态',
+  `status` bit NOT NULL COMMENT '借阅状态',
   `create_datetime` datetime NOT NULL COMMENT '创建时间',
   `return_datetime` datetime DEFAULT NULL COMMENT '归还时间',
   PRIMARY KEY (`record_id`),
@@ -58,3 +59,13 @@ CREATE TABLE `user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_email` (`user_email`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户信息表';
+
+-- ----------------------------
+-- Table structure for category
+-- ----------------------------
+CREATE TABLE `category` (
+  `category_name` varchar(128) COLLATE utf8_bin NOT NULL COMMENT '书籍种类名称',
+  PRIMARY KEY (`category_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='图书种类表';
+
+alter table book add category varchar(128) 
