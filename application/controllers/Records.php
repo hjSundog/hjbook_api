@@ -98,19 +98,22 @@ class records extends REST_Controller
     {
         $data = $this->_put_args;
         if ($id) {
-            //存在问题 之前两个都可以为空的
-            $query = $this->db->query('UPDATE record SET user_id = "'.$data['user_id'].'", book_id = "'.$data['book_id'].'", status = "'.$data['status'].'" WHERE record_id = '.$id);
+            if ($data['status'] === NULL) $this->response(array('error' => 'must input status'), 400);
+            //false !=== NULL BUT false == NULL!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //默认修改时间就是最终归还时间，如果status为零的话
+            $query = $this->db->query('UPDATE record SET status = "'.$data['status'].'" WHERE record_id = '.$id);
             if ($data['status'] == 0) 
             {
                 $query = $this->db->query('UPDATE record SET return_datetime = now() WHERE record_id = '.$id);
             }
             $query = $this->db->query('SELECT * FROM record WHERE record_id = '.$id);
             $record = $query->result();
+            if (!$record) $this->response(array('error' => 'record could not be found'), 404);
             //$record = array('id' => $data['id'], 'name' => $data['name']); // test code
             //$record = $this->record_model->getrecord($id);
             $this->response($record, 200); // 200 being the HTTP response code
         } else
-            $this->response(array('error' => 'record could not be found'), 404);
+            $this->response(array('error' => 'must enter an ID'), 400);
 
     }
         

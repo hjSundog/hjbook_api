@@ -22,7 +22,6 @@ class books extends REST_Controller
         $query = $this->db->query('SELECT * FROM book');
         // Example data for testing.
         $book = $query->result();
-         
         //if (!$book_id) { $book_id = $this->get('book_id'); }
         if (!$id)
             
@@ -31,7 +30,7 @@ class books extends REST_Controller
                 if($book)
                     $this->response($book, 200); // 200 being the HTTP response code
                 else
-                    $this->response(array('error' => 'Couldn\'t find any book!'), 404);
+                    $this->response(array('error' => 'Couldn\'t find any book'), 404);
             }
         
         //$book = $this->book_model->getbook($id);
@@ -44,14 +43,14 @@ class books extends REST_Controller
             if($book)
                 $this->response($book, 200); // 200 being the HTTP response code
             else
-                $this->response(array('error' => 'book could not be found'), 404);
+                $this->response(array('error' => 'Book could not be found'), 404);
             } 
-        if ($id == 0) $this->response(array('error' => 'book could not be found'), 404);
+        
     }
     
     function index_post() 
     {
-        if (func_num_args() != 0) $this->response(array('error' => 'cannot post with certain id'), 400);
+        if (func_num_args() != 0) $this->response(array('error' => 'Cannot post with certain id'), 400);
         $data = $this->_post_args;
         $query1 = $this->db->query('SELECT * FROM category WHERE category_name ="'.$data['book_category'].'"');
         $category = $query1->result();
@@ -99,8 +98,14 @@ class books extends REST_Controller
         if ($id) {
             //存在问题 之前两个都可以为空的
             //由于category和book表独立，所以尽量在put的时候不要动category的内容，毕竟常理上说一本书定了它的category已经定了
-
-            $query = $this->db->query('UPDATE book SET book_name = "'.$data['book_name'].'",book_category = "'.$data['book_category'].'", book_detail = "'.$data['book_detail'].'", borrowed = "'.$data['borrowed'].'" WHERE book_id = '.$id);
+            if ($data['book_name'])
+              $query = $this->db->query('UPDATE book SET book_name = "'.$data['book_name'].'" WHERE book_id = '.$id);
+            if ($data['book_category'])
+              $query = $this->db->query('UPDATE book SET book_category = "'.$data['book_category'].'" WHERE book_id = '.$id);
+            if ($data['book_detail'])
+              $query = $this->db->query('UPDATE book SET book_detail = "'.$data['book_detail'].'" WHERE book_id = '.$id);
+            if ($data['borrowed'])
+              $query = $this->db->query('UPDATE book SET borrowed = "'.$data['borrowed'].'" WHERE book_id = '.$id);
             $query = $this->db->query('SELECT * FROM book WHERE book_id = '.$id);
             $book = $query->result();
             //$book = array('id' => $data['id'], 'name' => $data['name']); // test code
@@ -108,7 +113,7 @@ class books extends REST_Controller
             
             $this->response($book, 200); // 200 being the HTTP response code
         } else
-            $this->response(array('error' => 'book could not be found'), 404);
+            $this->response(array('error' => 'Book could not be found'), 404);
         
     }
         
@@ -126,6 +131,6 @@ class books extends REST_Controller
         if($query) {
             $this->response(array('message' => 'Delete OK!'), 200);
         } else
-            $this->response(array('error' => 'book could not be found'), 404);
+            $this->response(array('error' => 'Book could not be found'), 404);
     }
 }
