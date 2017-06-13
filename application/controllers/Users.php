@@ -107,7 +107,7 @@ class users extends REST_Controller
             $user = $query->row_array();
             if($user){
                 unset($user['password']);
-                $user['header'] = $this->input->get_request_header('access_token');
+                $user['header'] = $this->input->get_request_header('Access-Token');
                 $this->response($user, 200); // 200 being the HTTP response code
             }
 
