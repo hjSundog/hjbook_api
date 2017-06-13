@@ -430,7 +430,7 @@ DELETE index.php/books/1
 
 ---
 
-## GET books/records/
+## GET records/
 
 ---
 
@@ -458,7 +458,7 @@ GET
 
 ---
 
-    GET index.php/books/records
+    GET index.php/records
 
 ##### RESULT
 
@@ -495,11 +495,11 @@ GET
 ---
 
 
-## GET books/records/id
+## GET books/id/records
 
 ---
 
-Get Specific Borrow Record Information
+Get Specific Book's Record Information
 
 ##### Authorization
 
@@ -524,7 +524,7 @@ GET
 ---
 
 ` ``
-GET index.php/books/records/1
+GET index.php/books/1/records
 ` 
 
 ##### RESULT
@@ -546,17 +546,17 @@ GET index.php/books/records/1
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
-| 404 | Record could not be found | Invalid record ID |
+| 404 | Book could not be found | Invalid book ID |
 
 ####About other error codes，view Error List Below.
 
 ---
 
-## POST books/records
+## POST books/id/records
 
 ---
 
-POST(Create) New Borrow Record Information
+POST(Create) New Record(Borrow) Information
 
 ##### Authorization
 
@@ -568,11 +568,7 @@ Yes
 
 ---
 
-| NAME | REQUIRED | TYPE | IMPLEMENT |
-|:-------------:|:-------------|:-------------|:-------------|
-| book_name | true | int | Book ID |
-| book_category | true | varchar | Book category |
-| book_detail | true | varchar | Book detail |
+none
 
 ##### METHOD
 
@@ -584,14 +580,7 @@ POST
 
 ---
 
-    POST index.php/books/records
-
-*** JSON EXAMPLE ***
-
-    {
-	   "user_id": 1,
-	   "book_id": 4
-	}
+    POST index.php/books/1/records
 
 ##### RESULT
 
@@ -600,30 +589,29 @@ POST
 *** JSON EXAMPLE ***
 
     {
-      "record_id": "6",
-      "user_id": "1",
-      "book_id": "4",
-      "status": "1",
-      "create_datetime": "2017-06-11 13:19:52",
-      "return_datetime": null
+        "record_id": "19",
+        "user_id": "5",
+        "book_id": "1",
+        "status": "1",
+        "create_datetime": "2017-06-13 17:41:05",
+        "return_datetime": null
     }
 
 *** ERRORS ***
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
-| 400 | Cannot post with certain id | Bad request |
-| 401 | Unauthorized | Need login |
+
 
 ####About other error codes，view Error List Below.
 
 ---
 
-## PUT books/records/id
+## POST books/id/return
 
 ---
 
-PUT(Update) Specific Borrow Record Information
+POST(Create) New Record(Return) Information
 
 ##### Authorization
 
@@ -635,31 +623,24 @@ Yes
 
 ---
 
-| NAME | REQUIRED | TYPE | IMPLEMENT |
-|:-------------:|:-------------|:-------------|:-------------|
-| status | true | bit | Borrow Status |
+none
 
 
 ##### METHOD
 
 ---
 
-PUT
+POST
 
 ##### EXAMPLE
 
 ---
 
 ` ``
-PUT index.php/books/records/1
+POST index.php/books/1/records
 ` 
 
 *** JSON EXAMPLE ***
-
-    {
-      "status": false
-    }
-
 
 ##### RESULT
 
@@ -668,12 +649,12 @@ PUT index.php/books/records/1
 *** JSON EXAMPLE ***
 
     {
-      "record_id": "1",
-      "user_id": "1",
-      "book_id": "4",
-      "status": "0",
-      "create_datetime": "2017-06-11 13:48:27",
-      "return_datetime": "2017-06-11 13:56:51"
+        "record_id": "20",
+        "user_id": "5",
+        "book_id": "1",
+        "status": "1",
+        "create_datetime": "0000-00-00 00:00:00",
+        "return_datetime": "2017-06-13 18:30:24"
     }
 
 *** ERRORS ***
@@ -688,17 +669,74 @@ PUT index.php/books/records/1
 
 ---
 
-## DELETE books/records/id
+## GET books/categories/
 
 ---
 
-DELETE Specific Borrow Record Information
+Get All Category Information
 
 ##### Authorization
 
 ---
 
-Yes
+No
+
+##### Parameters
+
+---
+
+No Parameters
+
+##### METHOD
+
+---
+
+GET
+
+##### EXAMPLE
+
+---
+
+    GET index.php/books/categories
+
+##### RESULT
+
+---
+
+*** JSON EXAMPLE ***
+    
+    {
+        "category_name": "dict"
+    },
+    {
+        "category_name": "index"
+    },
+    {
+        "category_name": "novel"
+    },
+    {
+        "category_name": "teach"
+    }
+    
+*** ERRORS ***
+
+| CODE | MESSAGE | IMPLEMENT |
+|:-------------:|:-------------|
+| 404 | No categories | No categories |
+
+####About other error codes，view Error List Below.
+
+## GET categories/id
+
+---
+
+Get Specific Category Information
+
+##### Authorization
+
+---
+
+No
 
 ##### Parameters
 
@@ -710,16 +748,15 @@ None
 
 ---
 
-DELETE
+GET
 
 ##### EXAMPLE
 
 ---
 
 ` ``
-DELETE index.php/books/records/6
+GET index.php/categories/novel
 ` 
-
 
 ##### RESULT
 
@@ -727,20 +764,27 @@ DELETE index.php/books/records/6
 
 *** JSON EXAMPLE ***
 
-    {   
-      "message": "Delete OK!"
+    {
+        "book_id": "1",
+        "book_name": "Guardian1",
+        "book_category": "novel",
+        "book_detail": "test1111",
+        "borrowed": "1",
+        "create_datetime": "2017-06-11 13:42:18"
+    },
+    {
+        "book_id": "2",
+        "book_name": "Guardian",
+        "book_category": "novel",
+        "book_detail": "test",
+        "borrowed": "0",
+        "create_datetime": "2017-06-11 13:42:32"
     }
-
 
 *** ERRORS ***
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
-| 400 | An ID must be supplied to delete a record | add ID |
-| 401 | Unauthorized | Need login |
-| 404 | record could not be found | Invalid book ID |
+| 404 | Category could not be found | Invalid category |
 
 ####About other error codes，view Error List Below.
-
----
-    

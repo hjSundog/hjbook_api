@@ -25,7 +25,10 @@ class categories extends REST_Controller
             {
                 $query = $this->db->query('SELECT * FROM category');
                 $category = $query->result();
-                $this->response($category, 200);
+                if ($category)
+                    $this->response($category, 200);
+                else
+                    $this->response(array('error' => 'No categories'), 404);
             }
         if ($category)
             {
@@ -35,7 +38,7 @@ class categories extends REST_Controller
             if($book)
                 $this->response($book, 200); // 200 being the HTTP response code
             else
-                $this->response(array('error' => 'category could not be found'), 404);
+                $this->response(array('error' => 'Category could not be found'), 404);
             } 
     }
 }
