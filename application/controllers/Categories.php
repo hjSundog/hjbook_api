@@ -15,7 +15,7 @@
 
 // This can be removed if you use __autoload() in config.php OR use Modular Extensions
 require APPPATH.'/libraries/REST_Controller.php';
-class categories extends REST_Controller
+class Categories extends REST_Controller
 {
     function index_get($category = "")
     {
