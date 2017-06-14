@@ -17,6 +17,10 @@
 require APPPATH.'/libraries/REST_Controller.php';
 class Categories extends REST_Controller
 {
+    function __construct() {
+        parent::__construct();
+        header('Access-Control-Allow-Origin:*');
+    }
     function index_get($category = "")
     {
         //echo "${category} fuck";

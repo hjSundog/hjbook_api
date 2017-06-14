@@ -17,7 +17,11 @@
 require APPPATH.'/libraries/REST_Controller.php';
 class revert extends REST_Controller
 {
-	function index_post($id = '')
+    function __construct() {
+       	parent::__construct();
+       	header('Access-Control-Allow-Origin:*');
+    }
+    function index_post($id = '')
     {
         $headers = $this->input->request_headers();
         $token = $this->jwt->decode($headers['access_token'],'hjbook_key');
