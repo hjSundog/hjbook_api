@@ -26,7 +26,12 @@ class revert extends REST_Controller
         $headers = $this->input->request_headers();
         $token = $this->jwt->decode($headers['Access-Token'],'hjbook_key');
         $actual_user = $token->user_id;
-        $query = $this->db->query('INSERT INTO record (user_id, book_id, status, return_datetime) VALUES ("'.$actual_user.'", "'.$id.'", 1, now())');
+        $query2 = $this->db->query('SELECT borrowed FROM book WHERE book_id ='.$id);
+        $book = $query2->result();
+        $borrowed = ($book[0]->{'borrowed'});
+        if ($borrowed == '0') $this->response(array('error' => 'The book is already returned'), 400);
+        $query1 = $this->db->query('UPDATE book SET borrowed = false WHERE book_id = '.$id);
+        $query = $this->db->query('INSERT INTO record (user_id, book_id, status, return_datetime) VALUES ("'.$actual_user.'", "'.$id.'", 0, now())');
         $new = $this->db->query('SELECT @@identity');
             $result = $new->result();
             //$this->response($result, 200);

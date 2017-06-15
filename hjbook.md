@@ -580,7 +580,7 @@ POST
 
 ---
 
-    POST index.php/books/1/records
+    POST index.php/books/1/borrow
 
 ##### RESULT
 
@@ -601,6 +601,7 @@ POST
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
+| 400 | The book is already borrowed | Already borrowed |
 
 
 ####About other error codes，view Error List Below.
@@ -637,7 +638,7 @@ POST
 ---
 
 ` ``
-POST index.php/books/1/records
+POST index.php/books/1/return
 ` 
 
 *** JSON EXAMPLE ***
@@ -661,9 +662,7 @@ POST index.php/books/1/records
 
 | CODE | MESSAGE | IMPLEMENT |
 |:-------------:|:-------------|
-| 400 | Must input status | Status not input |
-| 401 | Unauthorized | Need login |
-| 404 | record could not be found | Invalid book ID |
+| 400 | The book is already returned | Already returned |
 
 ####About other error codes，view Error List Below.
 
@@ -726,7 +725,7 @@ GET
 
 ####About other error codes，view Error List Below.
 
-## GET categories/id
+## GET categories/name
 
 ---
 
