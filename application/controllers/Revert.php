@@ -24,7 +24,7 @@ class revert extends REST_Controller
     function index_post($id = '')
     {
         $headers = $this->input->request_headers();
-        $token = $this->jwt->decode($headers['access_token'],'hjbook_key');
+        $token = $this->jwt->decode($headers['Access-Token'],'hjbook_key');
         $actual_user = $token->user_id;
         $query = $this->db->query('INSERT INTO record (user_id, book_id, status, return_datetime) VALUES ("'.$actual_user.'", "'.$id.'", 1, now())');
         $new = $this->db->query('SELECT @@identity');
