@@ -157,6 +157,7 @@ GET
       "book_detail": "Test"
       "borrowed": 0
       "create_datetime": "2017-05-28 16:14:59"
+      "current_user": "0"
     };
     {
       "book_id": 2,
@@ -164,6 +165,7 @@ GET
       "book_detail": "Test"
       "borrowed": 1
       "create_datetime": "2017-05-30 13:09:09"
+      "current_user": "0"
     }
     
 *** ERRORS ***
@@ -221,6 +223,7 @@ GET index.php/books/2
       "book_detail": "test",
       "borrowed": "0",
       "create_datetime": "2017-05-28 16:14:59"
+      "current_user": "0"
     }
 
 *** ERRORS ***
@@ -288,6 +291,7 @@ POST
       "book_detail": "Test"
       "borrowed": 0
       "create_datetime": "2010/1/1"
+      "current_user": "0"
     }
 
 *** ERRORS ***
@@ -360,6 +364,7 @@ PUT index.php/books/1
       "book_detail": "Test1"
       "borrowed": "1"
       "create_datetime": "2017/5/25"
+      "current_user": "2"
     }
 
 *** ERRORS ***
@@ -770,6 +775,7 @@ GET index.php/categories/novel
         "book_detail": "test1111",
         "borrowed": "1",
         "create_datetime": "2017-06-11 13:42:18"
+        "current_user": "1"
     },
     {
         "book_id": "2",
@@ -778,6 +784,7 @@ GET index.php/categories/novel
         "book_detail": "test",
         "borrowed": "0",
         "create_datetime": "2017-06-11 13:42:32"
+        "current_user": "1"  
     }
 
 *** ERRORS ***

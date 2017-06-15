@@ -31,6 +31,7 @@ class borrow extends REST_Controller
         $borrowed = ($book[0]->{'borrowed'});
         if ($borrowed == '1') $this->response(array('error' => 'The book is already borrowed'), 400);
         $query1 = $this->db->query('UPDATE book SET borrowed = true WHERE book_id = '.$id);
+        $query2 = $this->db->query('UPDATE book SET current_borrower = "'.$actual_user.'" WHERE book_id = '.$id);
         $query = $this->db->query('INSERT INTO record (user_id, book_id, status, create_datetime) VALUES ("'.$actual_user.'", "'.$id.'", 1, now())');
         $new = $this->db->query('SELECT @@identity');
             $result = $new->result();
