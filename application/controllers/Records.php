@@ -20,6 +20,7 @@ class records extends REST_Controller
     function __construct() {
        	parent::__construct();
        	header('Access-Control-Allow-Origin:*');
+        header('Access-Control-Allow-Headers:*');
     }
     function index_get($id = '')
     {
