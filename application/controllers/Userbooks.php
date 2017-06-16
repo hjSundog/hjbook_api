@@ -17,7 +17,11 @@
 require APPPATH.'/libraries/REST_Controller.php';
 class userbooks extends REST_Controller
 {
-   function index_get($id = '')
+    function __construct() {
+        parent::__construct();
+        header('Access-Control-Allow-Origin:*');
+    }
+    function index_get($id = '')
     {
         $result = array();
         $query = $this->db->query('SELECT * FROM book WHERE current_borrower = '.$id);
