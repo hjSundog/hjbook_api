@@ -26,6 +26,7 @@ CREATE TABLE `book` (
   `book_detail` varchar(128) COLLATE utf8_bin NOT NULL COMMENT '书籍简介',
   `borrowed` bit NOT NULL DEFAULT false COMMENT '图书是否被借阅',
   `create_datetime` datetime NOT NULL COMMENT '创建时间',
+  `current_borrower` int(11) DEFAULT NULL COMMENT '当前用户id',
   PRIMARY KEY (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='图书信息表';
 

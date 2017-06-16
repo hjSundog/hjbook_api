@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-
+$route['users/(\d+)/books'] = '/userbooks/$1';
 $route['books/categories/([a-z]+)'] = '/categories/$1';
 $route['books/categories'] = '/categories';
 $route['books/(\d+)/return'] = 'revert/$1';
